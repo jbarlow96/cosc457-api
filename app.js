@@ -24,6 +24,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// sanity check
+app.get('/', (req, res) => res.json({ msg: 'Hello' }));
+
 // Create DB
 app.get('/createdb', (req, res) => {
   let sql = 'CREATE DATABASE BulletsInk';
@@ -90,6 +93,16 @@ app.post('/addreservation', (req, res) => {
 // // Select posts
 app.get('/getreservation', (reg, res) => {
   let sql = 'SELECT * FROM reservation';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select artists
+app.get('/getartists', (reg, res) => {
+  let sql = 'SELECT * FROM artist';
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results);
