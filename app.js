@@ -20,6 +20,9 @@ db.connect(err => {
 });
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Create DB
 app.get('/createdb', (req, res) => {
@@ -85,14 +88,14 @@ app.post('/addreservation', (req, res) => {
 //app.use('/addreservation');
 
 // // Select posts
-// app.get('/getposts', (reg, res) => {
-//   let sql = 'SELECT * FROM posts';
-//   let query = db.query(sql, (err, results) => {
-//     if (err) throw err;
-//     console.log(results);
-//     res.send('Posts fetched...');
-//   });
-// });
+app.get('/getreservation', (reg, res) => {
+  let sql = 'SELECT * FROM reservation';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
 
 // // Select single post
 // app.get('/getpost/:id', (req, res) => {
