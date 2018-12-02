@@ -19,7 +19,7 @@ db.connect((err) => {
 });
 
 const app = express();
-/*
+
 // Create DB
 app.get('/createdb', (req,res) => {
     let sql = 'CREATE DATABASE nodemysql';
@@ -29,9 +29,9 @@ app.get('/createdb', (req,res) => {
         res.send('database created...');
     });
 });
-*/
 
-/*
+
+
 // Create Table
 app.get('/createpoststable', (reg,res) => {
     let sql = 'CREATE TABLE posts(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY (id))';
@@ -41,9 +41,9 @@ app.get('/createpoststable', (reg,res) => {
         res.send('Posts table created...');
     })
 });
-*/
 
-/*
+
+
 // Insert post 2
 app.get('/addpost2', (reg, res) => {
     let post = {title: 'Post Two', body:'This is post number two'};
@@ -54,7 +54,7 @@ app.get('/addpost2', (reg, res) => {
         res.send('Post 2 added...');
     });
 });
-*/
+
 
 // Select posts
 app.get('/getposts', (reg, res) => {
