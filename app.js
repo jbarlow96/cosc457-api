@@ -68,23 +68,148 @@ app.post('/addreservation', (req, res) => {
     artist: req.body.artist,
     resvDate: req.body.resvDate
   };
-
-  //   let validationQuery = `SELECT * FROM reservation where ${
-  //     reservation.artist
-  //   } AND ${reservation.resvDate}`;
-  //   if (validationQuery) {
-  //     return res
-  //       .status(401)
-  //       .json({
-  //         duplicateresv: 'An artist already has an appointment at that time.'
-  //       });
-  //   }
-
   let sql = 'INSERT INTO reservation SET ?';
   let query = db.query(sql, reservation, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.status(200).json({ success: 'Reservation created' });
+  });
+});
+
+app.post('/customeraccount', (req, res) => {
+  let customer_account = {
+    Cust_id: req.body.Cust_id,
+    Uname: req.body.Uname,
+    Passwd: req.body.Passwd,
+    Email: req.body.Email,
+    Phone: req.body.Phone
+  };
+  let sql = 'INSERT INTO customer_account SET ?';
+  let query = db.query(sql, customer_account, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Account Created' });
+  });
+});
+
+app.post('/manager', (req, res) => {
+  let manager = {
+    Man_id: req.body.Man_id, 
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id
+
+  };
+  let sql = 'INSERT INTO manager SET ?';
+  let query = db.query(sql, manager, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Manager Created' });
+  });
+});
+
+app.post('/manageraccount', (req, res) => {
+  let manager_account = {
+    Man_id: req.body.Man_id, 
+    Uname: req.body.Uname,
+    Passwd: req.body.Passwd
+    
+  };
+  let sql = 'INSERT INTO manager_account SET ?';
+  let query = db.query(sql, manager_account, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Manager Account Created' });
+  });
+});
+
+app.post('/merchandise', (req, res) => {
+  let merchandise = {
+    Merch_id: req.body.Merch_id, 
+    Merch_type: req.body.Merch_type,
+    Merch_name: req.body.Merch_name,
+    Merch_price: req.body.Merch_price,
+    Merch_count: req.body.Merch_count
+
+  };
+  let sql = 'INSERT INTO merchandise SET ?';
+  let query = db.query(sql, merchandise, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'merchandise Created' });
+  });
+});
+
+app.post('/piercing', (req, res) => {
+  let piercing = {
+    Pierce_no: req.body.Pierce_no, 
+    Cust_id: req.body.Cust_id,
+    Pierce_type: req.body.Pierce_no,
+    Price: req.body.Price,
+    Equip_id: req.body.Equip_id
+
+  };
+  let sql = 'INSERT INTO piercing SET ?';
+  let query = db.query(sql, piercing, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Piercing Created' });
+  });
+});
+
+app.post('/result', (req, res) => {
+  let result = {
+    Result_id: req.body.Result_id, 
+    Shop_id: req.body.Shop_id,
+    Cust_id: req.body.Cust_id,
+    Artist_id: req.body.Artist_id,
+    Res_type: req.body.Res_type,
+    Res_date: req.body.Res_date,
+    Start_time: req.body.Start_time,
+    End_time: req.body.End_time
+
+  };
+  let sql = 'INSERT INTO result SET ?';
+  let query = db.query(sql, result, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Result Created' });
+  });
+});
+
+app.post('/tattoo', (req, res) => {
+  let tattoo = {
+    Tat_no: req.body.Tat_no, 
+    Cust_id: req.body.Cust_id,
+    Color: req.body.Color,
+    Size: req.body.Size,
+    Est_time: req.body.Est_time,
+    Shop_id: req.body.Shop_id,
+    Equip_id: req.body.Equip_id
+
+
+  };
+  let sql = 'INSERT INTO tattoo SET ?';
+  let query = db.query(sql, tattoo, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Tattoo Set' });
+  });
+});
+
+app.post('/waiverpolicy', (req, res) => {
+  let waiver_policy = {
+    Pol_id: req.body.Pol_id, 
+    Pol_signed: req.body.Pol_signed,
+    Pol_date: req.body.Pol_date,
+    Cust_id: req.body.Cust_id
+
+  };
+  let sql = 'INSERT INTO waiver_policy SET ?';
+  let query = db.query(sql, waiver_policy, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Waiver Policy Created' });
   });
 });
 
