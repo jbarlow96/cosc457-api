@@ -79,6 +79,21 @@ app.post('/addreservation', (req, res) => {
   });
 });
 
+//post add customer
+app.post('/customer', (req, res) => {
+  let customer = {
+    Cust_id: req.body.Cust_id,
+    Fname: req.body.Fname,
+    Lname: req.body.Lname
+  };
+  let sql = 'INSERT INTO customer SET ?';
+  let query = db.query(sql, customer, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Customer Created' });
+  });
+});
+
 // post customer account
 app.post('/customeraccount', (req, res) => {
   let customer_account = {
@@ -241,6 +256,16 @@ app.get('/getreservation', (reg, res) => {
 // select artists
 app.get('/getartists', (reg, res) => {
   let sql = 'SELECT * FROM artist';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select customers
+app.get('/getcustomer', (reg, res) => {
+  let sql = 'SELECT * FROM customer';
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results);
