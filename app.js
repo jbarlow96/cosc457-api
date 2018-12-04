@@ -48,6 +48,7 @@ app.get('/createreservationtable', (reg, res) => {
   });
 });
 
+/*
 // Insert post 2
 app.get('/addpost2', (reg, res) => {
   let post = { title: 'Post Two', body: 'This is post number two' };
@@ -58,7 +59,9 @@ app.get('/addpost2', (reg, res) => {
     res.send('Post 2 added...');
   });
 });
+*/
 
+// post addreservation
 app.post('/addreservation', (req, res) => {
   let reservation = {
     firstName: req.body.firstName,
@@ -76,6 +79,7 @@ app.post('/addreservation', (req, res) => {
   });
 });
 
+// post customer account
 app.post('/customeraccount', (req, res) => {
   let customer_account = {
     Cust_id: req.body.Cust_id,
@@ -92,6 +96,7 @@ app.post('/customeraccount', (req, res) => {
   });
 });
 
+// post manager
 app.post('/manager', (req, res) => {
   let manager = {
     Man_id: req.body.Man_id, 
@@ -108,6 +113,7 @@ app.post('/manager', (req, res) => {
   });
 });
 
+// post manager account
 app.post('/manageraccount', (req, res) => {
   let manager_account = {
     Man_id: req.body.Man_id, 
@@ -123,6 +129,7 @@ app.post('/manageraccount', (req, res) => {
   });
 });
 
+// post merchandies
 app.post('/merchandise', (req, res) => {
   let merchandise = {
     Merch_id: req.body.Merch_id, 
@@ -140,6 +147,7 @@ app.post('/merchandise', (req, res) => {
   });
 });
 
+// post piercing
 app.post('/piercing', (req, res) => {
   let piercing = {
     Pierce_no: req.body.Pierce_no, 
@@ -157,6 +165,7 @@ app.post('/piercing', (req, res) => {
   });
 });
 
+// post result
 app.post('/result', (req, res) => {
   let result = {
     Result_id: req.body.Result_id, 
@@ -177,6 +186,7 @@ app.post('/result', (req, res) => {
   });
 });
 
+// post tatoo
 app.post('/tattoo', (req, res) => {
   let tattoo = {
     Tat_no: req.body.Tat_no, 
@@ -197,6 +207,7 @@ app.post('/tattoo', (req, res) => {
   });
 });
 
+// post waiver policy
 app.post('/waiverpolicy', (req, res) => {
   let waiver_policy = {
     Pol_id: req.body.Pol_id, 
@@ -216,6 +227,8 @@ app.post('/waiverpolicy', (req, res) => {
 //app.use('/addreservation');
 
 // // Select posts
+
+// get reservations
 app.get('/getreservation', (reg, res) => {
   let sql = 'SELECT * FROM reservation';
   let query = db.query(sql, (err, results) => {
@@ -228,6 +241,86 @@ app.get('/getreservation', (reg, res) => {
 // select artists
 app.get('/getartists', (reg, res) => {
   let sql = 'SELECT * FROM artist';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select customer accounts
+app.get('/getcustomeraccount', (reg, res) => {
+  let sql = 'SELECT * FROM customer_account';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// get managers
+app.get('/getmanager', (reg, res) => {
+  let sql = 'SELECT * FROM manager';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// get manager accounts
+app.get('/getmanageraccount', (reg, res) => {
+  let sql = 'SELECT * FROM manager_account';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select merchandise
+app.get('/getmerchandise', (reg, res) => {
+  let sql = 'SELECT * FROM merchandise';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select piercings
+app.get('/getpiercing', (reg, res) => {
+  let sql = 'SELECT * FROM piercing';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select results
+app.get('/getresult', (reg, res) => {
+  let sql = 'SELECT * FROM result';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select tattoos
+app.get('/gettattoo', (reg, res) => {
+  let sql = 'SELECT * FROM tattoo';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// select waiver policies
+app.get('/getwaiverpolicy', (reg, res) => {
+  let sql = 'SELECT * FROM waiver_policy';
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
     console.log(results);
