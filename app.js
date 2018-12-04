@@ -6,9 +6,9 @@ const cors = require('cors');
 // Create connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: 'root', 
   password: '', // enter your password
-  database: 'BulletsInk'
+  database: 'BulletsInk' // enter your database/schema name here
 });
 
 // Connect
@@ -144,7 +144,7 @@ app.post('/manageraccount', (req, res) => {
   });
 });
 
-// post merchandies
+// post merchandise
 app.post('/merchandise', (req, res) => {
   let merchandise = {
     Merch_id: req.body.Merch_id, 
@@ -353,6 +353,87 @@ app.get('/getwaiverpolicy', (reg, res) => {
   });
 });
 
+app.get('/deletereservation/:id', (req, res) => {
+  let sql = `DELETE FROM reservation WHERE res_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Reservation Deleted...');
+  });
+});
+
+app.get('/deletecustumeraccount/:id', (req, res) => {
+  let sql = `DELETE FROM customer_account WHERE Cust_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Customer Account Deleted...');
+  });
+});
+
+app.get('/deletemanager/:id', (req, res) => {
+  let sql = `DELETE FROM manager WHERE Man_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Manager Deleted...');
+  });
+});
+
+app.get('/deletemanageraccount/:id', (req, res) => {
+  let sql = `DELETE FROM manager_account WHERE Man_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Manager Account Deleted...');
+  });
+});
+
+app.get('/deletemerchandise/:id', (req, res) => {
+  let sql = `DELETE FROM merchandise WHERE Merch_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Selected Merchandise Deleted...');
+  });
+});
+
+app.get('/deletepiercing/:id', (req, res) => {
+  let sql = `DELETE FROM piercing WHERE Pierce_no = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Piercing Deleted...');
+  });
+});
+
+app.get('/deleteresult/:id', (req, res) => {
+  let sql = `DELETE FROM result WHERE result_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Result Deleted...');
+  });
+});
+
+app.get('/deletetattoo/:id', (req, res) => {
+  let sql = `DELETE FROM tattoo WHERE Tat_no = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Tattoo Deleted...');
+  });
+});
+
+app.get('/deletewaiverpolicy/:id', (req, res) => {
+  let sql = `DELETE FROM waiver_policy WHERE Pol_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Waiver Policy Deleted...');
+  });
+});
+
 // // Select single post
 // app.get('/getpost/:id', (req, res) => {
 //   let sql = `SELECT * FROM posts WHERE id = ${req.params.id}`;
@@ -376,17 +457,16 @@ app.get('/getwaiverpolicy', (reg, res) => {
 //   });
 // });
 
-// // Delete post
-// app.get('/deletepost/:id', (req, res) => {
-//   let newTitle = 'Updated Title';
-//   let sql = `DELETE FROM posts WHERE id = '${req.params.id}'`;
-//   let query = db.query(sql, (err, result) => {
-//     if (err) throw err;
-//     console.log(result);
-//     res.send('Post deleted...');
-//   });
-// });
-
+/* Delete post
+ app.get('/deletepost/:id', (req, res) => {
+   let sql = `DELETE FROM posts WHERE id = '${req.params.id}'`;
+   let query = db.query(sql, (err, result) => {
+     if (err) throw err;
+     console.log(result);
+     res.send('Post deleted...');
+   });
+ });
+*/
 app.listen('4000', () => {
   console.log('Server started on port 4000');
 });
