@@ -7,8 +7,8 @@ const cors = require('cors');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', // enter your password
-  database: 'BulletsInk'
+  password: 'password', // enter your password
+  database: 'finalProjectSchema'
 });
 
 // Connect
@@ -143,6 +143,14 @@ app.get('/getartists', (reg, res) => {
 //     res.send('Post deleted...');
 //   });
 // });
+
+//DAVID 12/02/2018 ATTEMPT TO ADD NEW ENTITIES TO SITE
+
+
+//END OF ATTEMPT
+
+
+
 
 app.listen('4000', () => {
   console.log('Server started on port 4000');
