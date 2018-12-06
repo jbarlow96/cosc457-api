@@ -7,8 +7,8 @@ const cors = require('cors');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'password', // enter your password
-  database: 'finalProjectSchema'
+  password: '', // enter your password
+  database: 'BulletsInk'
 });
 
 // Connect
@@ -37,6 +37,7 @@ app.get('/createdb', (req, res) => {
   });
 });
 
+/*
 // Create Table
 app.get('/createreservationtable', (reg, res) => {
   let sql =
@@ -47,6 +48,7 @@ app.get('/createreservationtable', (reg, res) => {
     res.send('Reservations table created...');
   });
 });
+*/
 
 /*
 // Insert post 2
@@ -241,7 +243,7 @@ app.post('/waiverpolicy', (req, res) => {
 
 //app.use('/addreservation');
 
-// // Select posts
+//----------------------------------------------------------------------------------
 
 // get reservations
 app.get('/getreservation', (reg, res) => {
@@ -353,6 +355,9 @@ app.get('/getwaiverpolicy', (reg, res) => {
   });
 });
 
+//----------------------------------------------------------------------------------
+
+// delete reservation
 app.get('/deletereservation/:id', (req, res) => {
   let sql = `DELETE FROM reservation WHERE res_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -362,6 +367,17 @@ app.get('/deletereservation/:id', (req, res) => {
   });
 });
 
+// delete artist
+app.get('/deleteartist/:id', (req, res) => {
+  let sql = `DELETE FROM artist WHERE Artist_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Artist Deleted...');
+  });
+});
+
+// delete customer account
 app.get('/deletecustumeraccount/:id', (req, res) => {
   let sql = `DELETE FROM customer_account WHERE Cust_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -371,6 +387,7 @@ app.get('/deletecustumeraccount/:id', (req, res) => {
   });
 });
 
+// delete manager
 app.get('/deletemanager/:id', (req, res) => {
   let sql = `DELETE FROM manager WHERE Man_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -380,6 +397,7 @@ app.get('/deletemanager/:id', (req, res) => {
   });
 });
 
+// delete manager account
 app.get('/deletemanageraccount/:id', (req, res) => {
   let sql = `DELETE FROM manager_account WHERE Man_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -389,6 +407,7 @@ app.get('/deletemanageraccount/:id', (req, res) => {
   });
 });
 
+// delete merchandise
 app.get('/deletemerchandise/:id', (req, res) => {
   let sql = `DELETE FROM merchandise WHERE Merch_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -398,6 +417,7 @@ app.get('/deletemerchandise/:id', (req, res) => {
   });
 });
 
+// delete piercing
 app.get('/deletepiercing/:id', (req, res) => {
   let sql = `DELETE FROM piercing WHERE Pierce_no = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -407,6 +427,7 @@ app.get('/deletepiercing/:id', (req, res) => {
   });
 });
 
+// delete result
 app.get('/deleteresult/:id', (req, res) => {
   let sql = `DELETE FROM result WHERE result_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -416,6 +437,7 @@ app.get('/deleteresult/:id', (req, res) => {
   });
 });
 
+// delete tattoo
 app.get('/deletetattoo/:id', (req, res) => {
   let sql = `DELETE FROM tattoo WHERE Tat_no = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -425,6 +447,7 @@ app.get('/deletetattoo/:id', (req, res) => {
   });
 });
 
+//delete waiver policy
 app.get('/deletewaiverpolicy/:id', (req, res) => {
   let sql = `DELETE FROM waiver_policy WHERE Pol_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
@@ -434,19 +457,117 @@ app.get('/deletewaiverpolicy/:id', (req, res) => {
   });
 });
 
-/*
-app.get('/updatereservation/:id', (req, res) => {
+//--------------------------------------------------------------------------------
+
+// update reservation
+app.patch('/updatereservation/:id', (req, res) => {
   let newReservation = 'Updated Reservation';
-  let sql = `UPDATE reservation SET title = '${newTitle}' WHERE id = '${
-    req.params.id
-  }'`;
-  let query = db.query(sql, (err, result) => {
+  let sql = `UPDATE reservation SET ? WHERE Res_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Res_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Reservation updated...');
+    res.send('Reservation info updated...');
   });
 });
-*/
+
+// update Artist
+app.patch('/updateartist/:id', (req, res) => {
+  let newArtist = 'Updated Artist';
+  let sql = `UPDATE artist SET ? WHERE Artist_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Artist_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Artist Info Updated...');
+  });
+});
+
+// update customer account
+app.patch('/updatecustomeraccount/:id', (req, res) => {
+  let newCustomeraccount = 'Updated Customer Account';
+  let sql = `UPDATE customer_account SET ? WHERE Cust_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Cust_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Customer Account updated...');
+  });
+});
+
+// update manager
+app.patch('/updatemanager/:id', (req, res) => {
+  let newManager = 'Updated Manager';
+  let sql = `UPDATE manager SET ? WHERE Man_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Man_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Manager Info updated...');
+  });
+});
+
+// update manager account
+app.patch('/updatemanageraccount/:id', (req, res) => {
+  let newManagerAccount = 'Updated Manager Account';
+  let sql = `UPDATE manager SET ? WHERE Man_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Man_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Manager Account updated...');
+  });
+});
+
+// update merchandise
+app.patch('/updatemerchandise/:id', (req, res) => {
+  let newMerchandise = 'Updated Merchandise';
+  let sql = `UPDATE merchandise SET ? WHERE Merch_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Merch_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Merchandise updated...');
+  });
+});
+
+// update piercing
+app.patch('/updatepiercing/:id', (req, res) => {
+  let newPiercing = 'Updated Piercing';
+  let sql = `UPDATE piercing SET ? WHERE Pierce_no = ?`;
+  let query = db.query(sql, [req.body,req.body.Pierce_no], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('piercing updated...');
+  });
+});
+
+// update result
+app.patch('/updateresult/:id', (req, res) => {
+  let newResult = 'Updated Result';
+  let sql = `UPDATE result SET ? WHERE Result_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Result_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Result updated...');
+  });
+});
+
+// update tattoo
+app.patch('/updatetattoo/:id', (req, res) => {
+  let newTattoo = 'Updated Tattoo';
+  let sql = `UPDATE tattoo SET ? WHERE Tat_no = ?`;
+  let query = db.query(sql, [req.body,req.body.Tat_no], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Tattoo updated...');
+  });
+});
+
+// update waiver policy
+app.patch('/updatewaiverpolicy/:id', (req, res) => {
+  let newWaiverPolicy = 'Updated Waiver Policy';
+  let sql = `UPDATE waiver_policy SET ? WHERE Pol_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Pol_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Waiver Policy updated...');
+  });
+});
 
 
 
@@ -484,14 +605,6 @@ app.get('/updatereservation/:id', (req, res) => {
    });
  });
 */
-
-//DAVID 12/02/2018 ATTEMPT TO ADD NEW ENTITIES TO SITE
-
-
-//END OF ATTEMPT
-
-
-
 
 app.listen('4000', () => {
   console.log('Server started on port 4000');
