@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for macos10.13 (x86_64)
 --
--- Host: localhost    Database: bullets_ink
+-- Host: localhost    Database: BulletsInk
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `artist` (
   PRIMARY KEY (`Artist_id`),
   KEY `Shop_id` (`Shop_id`),
   CONSTRAINT `artist_ibfk_1` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +59,7 @@ CREATE TABLE `cancellation_policy` (
   PRIMARY KEY (`Pol_id`),
   KEY `Cust_id` (`Cust_id`),
   CONSTRAINT `cancellation_policy_ibfk_1` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +83,7 @@ CREATE TABLE `customer` (
   `Fname` varchar(15) NOT NULL,
   `Lname` varchar(15) NOT NULL,
   PRIMARY KEY (`Cust_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (0,'Andrew','Louder'),(1,'David','Hanlon'),(2,'Jude','Barlow');
+INSERT INTO `customer` VALUES (0,'Andrew','Louder'),(1,'David','Hanlon'),(2,'Jude','Barlow'),(3,'John','Doe'),(4,'Jane','Doe'),(5,'Leon','Bernard');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,7 +111,7 @@ CREATE TABLE `customer_account` (
   `Phone` varchar(11) NOT NULL,
   PRIMARY KEY (`Cust_id`),
   CONSTRAINT `customer_account_ibfk_1` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `customer_account` (
 
 LOCK TABLES `customer_account` WRITE;
 /*!40000 ALTER TABLE `customer_account` DISABLE KEYS */;
-INSERT INTO `customer_account` VALUES (0,'alouder','alouder450','alouder17@gmail.com','2402056738'),(1,'dhanlon','dhanlon450','davidhanlon23@gmail.com','4437352450'),(2,'jbarlow','jbarlow450','jbarlow524@gmail.com','4437990791');
+INSERT INTO `customer_account` VALUES (0,'alouder','alouder450','alouder17@gmail.com','2402056738'),(1,'dhanlon','dhanlon450','davidhanlon23@gmail.com','4437352450'),(2,'jbarlow','jpassword','jemail@gmail.com','0000000001'),(3,'PatchTest','PasswordAc','testing@gmail.com','1111111111');
 /*!40000 ALTER TABLE `customer_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +136,7 @@ CREATE TABLE `inventory` (
   `Equip_name` varchar(25) DEFAULT NULL,
   `Price` float DEFAULT NULL,
   PRIMARY KEY (`Equip_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `location` (
   `Address` varchar(45) NOT NULL,
   `Zip` char(5) NOT NULL,
   PRIMARY KEY (`Shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +191,7 @@ CREATE TABLE `manager` (
   PRIMARY KEY (`Man_id`),
   KEY `Shop_id` (`Shop_id`),
   CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +200,7 @@ CREATE TABLE `manager` (
 
 LOCK TABLES `manager` WRITE;
 /*!40000 ALTER TABLE `manager` DISABLE KEYS */;
-INSERT INTO `manager` VALUES (0,'Bullet','Elmore',0),(1,'Ned','Stark',1),(2,'Rick','Sanchez',2);
+INSERT INTO `manager` VALUES (0,'Bullet','Elmore',0),(1,'Ned','Stark',1),(2,'Rick','Sanchez',2),(5,'Rick','Testing',2),(123,'Please','Testing',1);
 /*!40000 ALTER TABLE `manager` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +217,7 @@ CREATE TABLE `manager_account` (
   `Passwd` varchar(15) NOT NULL,
   PRIMARY KEY (`Man_id`),
   CONSTRAINT `manager_account_ibfk_1` FOREIGN KEY (`Man_id`) REFERENCES `manager` (`man_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,7 +226,7 @@ CREATE TABLE `manager_account` (
 
 LOCK TABLES `manager_account` WRITE;
 /*!40000 ALTER TABLE `manager_account` DISABLE KEYS */;
-INSERT INTO `manager_account` VALUES (0,'bullet','bullet450'),(1,'nstark','stark450'),(2,'rsanchez','sanchez450');
+INSERT INTO `manager_account` VALUES (0,'bullet','bullet450'),(1,'nstark','stark450'),(2,'rsanchez','sanchez450'),(5,'Rickisawesome','Rdpassword'),(123,'Randombob','Rbpassword');
 /*!40000 ALTER TABLE `manager_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +244,7 @@ CREATE TABLE `merchandise` (
   `Merch_price` float NOT NULL,
   `Merch_count` int(11) NOT NULL,
   PRIMARY KEY (`Merch_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `merchandise` (
 
 LOCK TABLES `merchandise` WRITE;
 /*!40000 ALTER TABLE `merchandise` DISABLE KEYS */;
-INSERT INTO `merchandise` VALUES (0,'T-Shirt','Bullet Logo Shortsleeve',20,100),(1,'Sweatshirt','Bullet Logo Sweatshirt',40,50),(2,'Beanie','Bullet Logo Beanie',15,50);
+INSERT INTO `merchandise` VALUES (0,'T-Shirt','Bullet Logo Shortsleeve',20,100),(1,'Sweatshirt','Bullet Logo Sweatshirt',40,50),(2,'Beanie','Bullet Logo Beanie',15,50),(123,'shirt','blue shirt',5,15);
 /*!40000 ALTER TABLE `merchandise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +275,7 @@ CREATE TABLE `piercing` (
   KEY `Equip_id` (`Equip_id`),
   CONSTRAINT `piercing_ibfk_1` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`),
   CONSTRAINT `piercing_ibfk_2` FOREIGN KEY (`Equip_id`) REFERENCES `inventory` (`equip_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +284,7 @@ CREATE TABLE `piercing` (
 
 LOCK TABLES `piercing` WRITE;
 /*!40000 ALTER TABLE `piercing` DISABLE KEYS */;
+INSERT INTO `piercing` VALUES (0,0,'0',10,0);
 /*!40000 ALTER TABLE `piercing` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,22 +296,19 @@ DROP TABLE IF EXISTS `reservation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `reservation` (
-  `Res_id` int(11) NOT NULL,
-  `Shop_id` int(11) NOT NULL,
-  `Cust_id` int(11) NOT NULL,
-  `Artist_id` int(11) NOT NULL,
-  `Res_type` varchar(10) NOT NULL,
-  `Res_date` date NOT NULL,
-  `Start_time` time NOT NULL,
-  `End_time` time NOT NULL,
-  PRIMARY KEY (`Res_id`),
-  KEY `Shop_id` (`Shop_id`),
-  KEY `Cust_id` (`Cust_id`),
-  KEY `Artist_id` (`Artist_id`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`),
-  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`),
-  CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`Artist_id`) REFERENCES `artist` (`artist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+  `Res_id` int(11) NOT NULL AUTO_INCREMENT,
+  `Res_type` varchar(10) NOT NULL DEFAULT 'Tattoo',
+  `Res_date` date DEFAULT NULL,
+  `Start_time` time DEFAULT NULL,
+  `End_time` time DEFAULT NULL,
+  `firstName` varchar(45) DEFAULT NULL,
+  `lastName` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `phoneNum` varchar(45) DEFAULT NULL,
+  `artist` varchar(45) DEFAULT NULL,
+  `resvDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`Res_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,6 +317,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
+INSERT INTO `reservation` VALUES (11,'Tattoo',NULL,NULL,NULL,'some','randomguy','email@email.com','4444444444','Dennis','2018-12-18 00:00:00'),(12,'Tattoo',NULL,NULL,NULL,'Jude','Barlow','abc@gmail.com','11111111111','Denny','2019-01-22 00:00:00'),(13,'Tattoo',NULL,NULL,NULL,'asdf','adsf','email@email.com','1234556745','Denny','2018-12-22 00:00:00'),(14,'Tattoo',NULL,NULL,NULL,'asdf','adsf','email@email.com','1234556745','Denny','2018-12-22 00:00:00'),(15,'Tattoo',NULL,NULL,NULL,'asdf','adsf','email@email.com','1234556745','Denny','2018-12-22 00:00:00'),(16,'Tattoo',NULL,NULL,NULL,'david','hanlon','email@email.com','1111111111','Chris','2018-12-13 00:00:00'),(17,'Tattoo',NULL,NULL,NULL,'Andrew','Louder','email@email.com','1234567891','Rick','2019-01-23 00:00:00'),(18,'Tattoo',NULL,NULL,NULL,'Test','Testing','Test@gmail.com','2222222222','Bullet','2018-12-12 00:00:00'),(19,'Tattoo',NULL,NULL,NULL,'Tony','Stark','Ironman@gmail.com','1111111111','Tommy','2019-11-21 00:00:00'),(20,'Tattoo',NULL,NULL,NULL,'Andrew','Louder','email@email.com','1111111111','Rick','2018-12-17 00:00:00');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,7 +344,7 @@ CREATE TABLE `result` (
   CONSTRAINT `result_ibfk_1` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`),
   CONSTRAINT `result_ibfk_2` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`),
   CONSTRAINT `result_ibfk_3` FOREIGN KEY (`Artist_id`) REFERENCES `artist` (`artist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,6 +353,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
+INSERT INTO `result` VALUES (0,0,0,0,'tattoo','2019-09-09','03:30:00','06:30:00');
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +372,7 @@ CREATE TABLE `shop_has` (
   KEY `Shop_id` (`Shop_id`),
   CONSTRAINT `shop_has_ibfk_1` FOREIGN KEY (`Equip_id`) REFERENCES `inventory` (`equip_id`),
   CONSTRAINT `shop_has_ibfk_2` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,7 +400,7 @@ CREATE TABLE `shop_owner` (
   PRIMARY KEY (`Own_id`),
   KEY `Shop_id` (`Shop_id`),
   CONSTRAINT `shop_owner_ibfk_1` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,7 +435,7 @@ CREATE TABLE `tattoo` (
   CONSTRAINT `tattoo_ibfk_1` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`),
   CONSTRAINT `tattoo_ibfk_2` FOREIGN KEY (`Shop_id`) REFERENCES `location` (`shop_id`),
   CONSTRAINT `tattoo_ibfk_3` FOREIGN KEY (`Equip_id`) REFERENCES `inventory` (`equip_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -444,6 +444,7 @@ CREATE TABLE `tattoo` (
 
 LOCK TABLES `tattoo` WRITE;
 /*!40000 ALTER TABLE `tattoo` DISABLE KEYS */;
+INSERT INTO `tattoo` VALUES (0,0,0,0,3,0,0);
 /*!40000 ALTER TABLE `tattoo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +463,7 @@ CREATE TABLE `waiver_policy` (
   PRIMARY KEY (`Pol_id`),
   KEY `Cust_id` (`Cust_id`),
   CONSTRAINT `waiver_policy_ibfk_1` FOREIGN KEY (`Cust_id`) REFERENCES `customer` (`cust_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,6 +472,7 @@ CREATE TABLE `waiver_policy` (
 
 LOCK TABLES `waiver_policy` WRITE;
 /*!40000 ALTER TABLE `waiver_policy` DISABLE KEYS */;
+INSERT INTO `waiver_policy` VALUES (0,0,'2019-09-24',0);
 /*!40000 ALTER TABLE `waiver_policy` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -483,4 +485,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-30 15:41:21
+-- Dump completed on 2018-12-10 16:59:45
