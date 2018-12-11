@@ -7,8 +7,8 @@ const cors = require('cors');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', // enter your password
-  database: 'BulletsInk'
+  password: 'password', // enter your password
+  database: 'finalProjectSchema'
 });
 
 // Connect
@@ -363,7 +363,9 @@ app.get('/deletereservation/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Reservation Deleted...');
+    //console.log(result);
+    res.status(200).json({ success: 'Reservation Deleted' });
+    //res.send('Reservation Deleted...');
   });
 });
 
@@ -462,11 +464,23 @@ app.get('/deletewaiverpolicy/:id', (req, res) => {
 // update reservation
 app.patch('/updatereservation/:id', (req, res) => {
   let newReservation = 'Updated Reservation';
+//David
+  let reservationUpdate = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phoneNum: req.body.phoneNum,
+    artist: req.body.artist,
+    resvDate: req.body.resvDate//,
+    //Res_id: req.body.Res_id
+  };
+//
   let sql = `UPDATE reservation SET ? WHERE Res_id = ?`;
-  let query = db.query(sql, [req.body,req.body.Res_id], (err, result) => {
+  let query = db.query(sql,[reservationUpdate, req.params.id] /*[req.body,req.body.Res_id]*/, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Reservation info updated...');
+    //res.send('Reservation info updated...');
+    res.status(200).json({ success: 'Reservation Updated' });
   });
 });
 
