@@ -98,6 +98,23 @@ app.post('/addlocation', (req, res) => {
   });
 });
 
+// post add artist
+app.post('/addartist', (req, res) => {
+  let artist = {
+    Artist_id: req.body.Artist_id,
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id,
+    Artist_rating: req.body.Artist_rating
+  };
+  let sql = 'INSERT INTO artist SET ?';
+  let query = db.query(sql, artist, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Artist created' });
+  });
+});
+
 // post add inventory
 app.post('/addinventory', (req, res) => {
   let inventory = {
@@ -595,11 +612,18 @@ app.patch('/updatereservation/:id', (req, res) => {
 // update Artist
 app.patch('/updateartist/:id', (req, res) => {
   let newArtist = 'Updated Artist';
+  let artistUpdate =  {
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id,
+    Artist_rating: req.body.Artist_rating
+  };
   let sql = `UPDATE artist SET ? WHERE Artist_id = ?`;
   let query = db.query(sql, [req.body,req.body.Artist_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Artist Info Updated...');
+    //res.send('Artist Info Updated...');
+    res.status(200).json({ success: 'Reservation Updated'});
   });
 });
 
