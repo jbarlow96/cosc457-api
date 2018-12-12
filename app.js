@@ -5,10 +5,10 @@ const cors = require('cors');
 
 // Create connection
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password', // enter your password
-  database: 'finalProjectSchema'
+  host: 'localhost', // used localhost
+  user: 'root', 
+  password: '', // enter your password
+  database: 'BulletsInk' // change this to the name of your database
 });
 
 // Connect
@@ -81,7 +81,39 @@ app.post('/addreservation', (req, res) => {
   });
 });
 
-//post add customer
+// post add location
+app.post('/addlocation', (req, res) => {
+  let location = {
+    Shop_id: req.body.Shop_id,
+    State: req.body.State,
+    City: req.body.City,
+    Address: req.body.Address,
+    Zip: req.body.Zip
+  };
+  let sql = 'INSERT INTO location SET ?';
+  let query = db.query(sql, location, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Location created' });
+  });
+});
+
+// post add inventory
+app.post('/addinventory', (req, res) => {
+  let inventory = {
+    Equip_id: req.body.Equip_id,
+    Equip_name: req.body.Equip_name,
+    Price: req.body.Price
+  };
+  let sql = 'INSERT INTO inventory SET ?';
+  let query = db.query(sql, inventory, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Inventory created' });
+  });
+});
+
+// post add customer
 app.post('/customer', (req, res) => {
   let customer = {
     Cust_id: req.body.Cust_id,
@@ -241,9 +273,55 @@ app.post('/waiverpolicy', (req, res) => {
   });
 });
 
+// post add cancellation policy
+app.post('/addcancellationpolicy', (req, res) => {
+  let cancellation_policy = {
+    Pol_id: req.body.Pol_id,
+    Pol_signed: req.body.Pol_signed,
+    Pol_date: req.body.Pol_date,
+    Cust_id: req.body.Cust_id
+  };
+  let sql = 'INSERT INTO cancellation_policy SET ?';
+  let query = db.query(sql, location, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Cancellation Policy created' });
+  });
+});
+
 //app.use('/addreservation');
 
 //----------------------------------------------------------------------------------
+
+// get inventory
+app.get('/getinventory', (reg, res) => {
+  let sql = 'SELECT * FROM inventory';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// get location
+app.get('/getlocation', (reg, res) => {
+  let sql = 'SELECT * FROM location';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
+// get cancellation policy
+app.get('/getcancellationpolicy', (reg, res) => {
+  let sql = 'SELECT * FROM cancellation_policy';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
 
 // get reservations
 app.get('/getreservation', (reg, res) => {
@@ -449,6 +527,26 @@ app.get('/deletetattoo/:id', (req, res) => {
   });
 });
 
+// delete location
+app.get('/deletelocation/:id', (req, res) => {
+  let sql = `DELETE FROM location WHERE Shop_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Location Deleted...');
+  });
+});
+
+// delete inventory
+app.get('/deleteinventory/:id', (req, res) => {
+  let sql = `DELETE FROM inventory WHERE Equip_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Specified Inventory Deleted...');
+  });
+});
+
 //delete waiver policy
 app.get('/deletewaiverpolicy/:id', (req, res) => {
   let sql = `DELETE FROM waiver_policy WHERE Pol_id = ?`;
@@ -456,6 +554,16 @@ app.get('/deletewaiverpolicy/:id', (req, res) => {
     if (err) throw err;
     console.log(result);
     res.send('Waiver Policy Deleted...');
+  });
+});
+
+// delete cancellation policy
+app.get('/deletecancellationpolicy/:id', (req, res) => {
+  let sql = `DELETE FROM cancellation_policy WHERE Pol_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Cancellation Policy Deleted...');
   });
 });
 
@@ -583,42 +691,39 @@ app.patch('/updatewaiverpolicy/:id', (req, res) => {
   });
 });
 
+// update inventory
+app.patch('/updateinventory/:id', (req, res) => {
+  let newInventory = 'Updated Inventory';
+  let sql = `UPDATE inventory SET ? WHERE Equip_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Equip_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Inventory updated...');
+  });
+});
 
+// update location
+app.patch('/updatelocation/:id', (req, res) => {
+  let newLocation = 'Updated Location';
+  let sql = `UPDATE location SET ? WHERE Shop_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Shop_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Location updated...');
+  });
+});
 
-// // Select single post
-// app.get('/getpost/:id', (req, res) => {
-//   let sql = `SELECT * FROM posts WHERE id = ${req.params.id}`;
-//   let query = db.query(sql, (err, result) => {
-//     if (err) throw err;
-//     console.log(result);
-//     res.send('Post fetched...');
-//   });
-// });
+// update cancellation policy
+app.patch('/updatecancellationpolicy/:id', (req, res) => {
+  let newCancellationPolicy = 'Updated Cancellation Policy';
+  let sql = `UPDATE cancellation_policy SET ? WHERE Pol_id = ?`;
+  let query = db.query(sql, [req.body,req.body.Pol_id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.send('Cancellation Policy updated...');
+  });
+});
 
-/* Update post
- app.get('/updatepost/:id', (req, res) => {
-   let newTitle = 'Updated Title';
-   let sql = `UPDATE posts SET title = '${newTitle}' WHERE id = '${
-     req.params.id
-   }'`;
-   let query = db.query(sql, (err, result) => {
-     if (err) throw err;
-     console.log(result);
-     res.send('Post updated...');
-   });
- });
-*/
-
-/* Delete post
- app.get('/deletepost/:id', (req, res) => {
-   let sql = `DELETE FROM posts WHERE id = '${req.params.id}'`;
-   let query = db.query(sql, (err, result) => {
-     if (err) throw err;
-     console.log(result);
-     res.send('Post deleted...');
-   });
- });
-*/
 
 app.listen('4000', () => {
   console.log('Server started on port 4000');
