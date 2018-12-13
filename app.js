@@ -729,11 +729,18 @@ app.patch('/updateinventory/:id', (req, res) => {
 // update location
 app.patch('/updatelocation/:id', (req, res) => {
   let newLocation = 'Updated Location';
+  let locationUpdate = {
+    State: req.body.State,
+    City: req.body.City,
+    Address: req.body.Address,
+    Zip: req.body.Zip
+  };
   let sql = `UPDATE location SET ? WHERE Shop_id = ?`;
   let query = db.query(sql, [req.body,req.body.Shop_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Location updated...');
+    // res.send('Location updated...');
+    res.status(200).json({ success: 'Location Updated'});
   });
 });
 
