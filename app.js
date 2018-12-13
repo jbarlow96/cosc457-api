@@ -718,11 +718,16 @@ app.patch('/updatewaiverpolicy/:id', (req, res) => {
 // update inventory
 app.patch('/updateinventory/:id', (req, res) => {
   let newInventory = 'Updated Inventory';
+  let inventoryUpdate = {
+    Equip_name: req.body.Equip_name,
+    Price: req.body.Price
+  };
   let sql = `UPDATE inventory SET ? WHERE Equip_id = ?`;
   let query = db.query(sql, [req.body,req.body.Equip_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Inventory updated...');
+    //res.send('Inventory updated...');
+    res.status(200).json({ success: 'Invetory Updated'});
   });
 });
 
