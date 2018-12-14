@@ -544,7 +544,8 @@ app.get('/deletetattoo/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Tattoo Deleted...');
+    //res.send('Tattoo Deleted...');
+    res.status(200).json({ success: 'Tattoo Deleted'});
   });
 });
 
@@ -722,11 +723,20 @@ app.patch('/updateresult/:id', (req, res) => {
 // update tattoo
 app.patch('/updatetattoo/:id', (req, res) => {
   let newTattoo = 'Updated Tattoo';
+  let tattooUpdate = {
+    Cust_id: req.body.Cust_id,
+    Color: req.body.Color,
+    Size: req.body.Size,
+    Est_time: req.body.Est_time,
+    Shop_id: req.body.Shop_id,
+    Equip_id: req.body.Equip_id
+  };
   let sql = `UPDATE tattoo SET ? WHERE Tat_no = ?`;
   let query = db.query(sql, [req.body,req.body.Tat_no], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Tattoo updated...');
+    //res.send('Tattoo updated...');
+    res.status(200).json({ success: 'Tattoo Updated'});
   });
 });
 
