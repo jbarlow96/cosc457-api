@@ -523,7 +523,8 @@ app.get('/deletepiercing/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Piercing Deleted...');
+    //res.send('Piercing Deleted...');
+    res.status(200).json({ success: 'Piercing Deleted'});
   });
 });
 
@@ -692,11 +693,18 @@ app.patch('/updatemerchandise/:id', (req, res) => {
 // update piercing
 app.patch('/updatepiercing/:id', (req, res) => {
   let newPiercing = 'Updated Piercing';
+  let piercingUpdate ={
+    Cust_id: req.body.Cust_id,
+    Pierce_type: req.body.Pierce_no,
+    Price: req.body.Price,
+    Equip_id: req.body.Equip_id
+  };
   let sql = `UPDATE piercing SET ? WHERE Pierce_no = ?`;
   let query = db.query(sql, [req.body,req.body.Pierce_no], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('piercing updated...');
+    //res.send('piercing updated...');
+    res.status(200).json({ success: 'Piercing Updated'});
   });
 });
 
