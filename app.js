@@ -299,10 +299,26 @@ app.post('/addcancellationpolicy', (req, res) => {
     Cust_id: req.body.Cust_id
   };
   let sql = 'INSERT INTO cancellation_policy SET ?';
-  let query = db.query(sql, location, (err, result) => {
+  let query = db.query(sql, cancellation_policy, (err, result) => {
     if (err) throw err;
     console.log(result);
     res.status(200).json({ success: 'Cancellation Policy created' });
+  });
+});
+
+// post shop owner
+app.post('/addshopowner', (req, res) => {
+  let shop_owner = {
+    Own_id: req.body.Own_id,
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id
+  };
+  let sql = 'INSERT INTO shop_owner SET ?';
+  let query = db.query(sql, shop_owner, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    res.status(200).json({ success: 'Shop Owner Created' });
   });
 });
 
@@ -450,6 +466,16 @@ app.get('/getwaiverpolicy', (reg, res) => {
   });
 });
 
+// get shop owner
+app.get('/getshopowner', (reg, res) => {
+  let sql = 'SELECT * FROM shop_owner';
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.send({ results });
+  });
+});
+
 //----------------------------------------------------------------------------------
 
 // delete reservation
@@ -590,7 +616,8 @@ app.get('/deletewaiverpolicy/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Waiver Policy Deleted...');
+    //res.send('Waiver Policy Deleted...');
+    res.status(200).json({ success: 'Waiver Policy Deleted'});
   });
 });
 
@@ -600,7 +627,20 @@ app.get('/deletecancellationpolicy/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Cancellation Policy Deleted...');
+    //res.send('Cancellation Policy Deleted...');
+    res.status(200).json({ success: 'Cancellation Policy Deleted'});
+  });
+});
+
+// delete shop owner
+app.get('/deleteshopowner/:id', (req, res) => {
+  let sql = `DELETE FROM shop_owner WHERE Own_id = ?`;
+  let query = db.query(sql, req.params.id, (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    //console.log(result);
+    res.status(200).json({ success: 'Shop Owner Deleted' });
+    //res.send('Shop owner Deleted...');
   });
 });
 
@@ -788,11 +828,17 @@ app.patch('/updatetattoo/:id', (req, res) => {
 // update waiver policy
 app.patch('/updatewaiverpolicy/:id', (req, res) => {
   let newWaiverPolicy = 'Updated Waiver Policy';
+  let waiverpolicyUpdate = {
+    Pol_signed: req.body.Pol_signed,
+    Pol_date: req.body.Pol_date,
+    Cust_id: req.body.Cust_id
+  };
   let sql = `UPDATE waiver_policy SET ? WHERE Pol_id = ?`;
   let query = db.query(sql, [req.body,req.body.Pol_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Waiver Policy updated...');
+    //res.send('Waiver Policy updated...');
+    res.status(200).json({ success: 'Waiver Policy Updated'});
   });
 });
 
@@ -833,11 +879,35 @@ app.patch('/updatelocation/:id', (req, res) => {
 // update cancellation policy
 app.patch('/updatecancellationpolicy/:id', (req, res) => {
   let newCancellationPolicy = 'Updated Cancellation Policy';
+  let cancellationpolicyUpdate = {
+    Pol_signed: req.body.Pol_signed,
+    Pol_date: req.body.Pol_date,
+    Cust_id: req.body.Cust_id
+  };
   let sql = `UPDATE cancellation_policy SET ? WHERE Pol_id = ?`;
   let query = db.query(sql, [req.body,req.body.Pol_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Cancellation Policy updated...');
+    //res.send('Cancellation Policy updated...');
+    res.status(200).json({ success: 'Cancellation Policy Updated'});
+  });
+});
+
+// update shop owner
+app.patch('/updateshopowner/:id', (req, res) => {
+  let newShopOwner = 'Updated Shop Owner';
+  let shopownerUpdate = {
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id
+  };
+
+  let sql = `UPDATE shop_owner SET ? WHERE Own_id = ?`;
+  let query = db.query(sql,[reservationUpdate, req.params.id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+    //res.send('Shop Owner info updated...');
+    res.status(200).json({ success: 'Shop Owner Updated' });
   });
 });
 
