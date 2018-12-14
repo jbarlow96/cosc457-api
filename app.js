@@ -534,7 +534,8 @@ app.get('/deleteresult/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Result Deleted...');
+    //res.send('Result Deleted...');
+    res.status(200).json({ success: 'Result Deleted'});
   });
 });
 
@@ -596,7 +597,7 @@ app.get('/deletecancellationpolicy/:id', (req, res) => {
 // update reservation
 app.patch('/updatereservation/:id', (req, res) => {
   let newReservation = 'Updated Reservation';
-//David
+
   let reservationUpdate = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -606,7 +607,7 @@ app.patch('/updatereservation/:id', (req, res) => {
     resvDate: req.body.resvDate//,
     //Res_id: req.body.Res_id
   };
-//
+
   let sql = `UPDATE reservation SET ? WHERE Res_id = ?`;
   let query = db.query(sql,[reservationUpdate, req.params.id] /*[req.body,req.body.Res_id]*/, (err, result) => {
     if (err) throw err;
@@ -712,11 +713,22 @@ app.patch('/updatepiercing/:id', (req, res) => {
 // update result
 app.patch('/updateresult/:id', (req, res) => {
   let newResult = 'Updated Result';
+  let resultUpdate = {
+    Result_id: req.body.Result_id, 
+    Shop_id: req.body.Shop_id,
+    Cust_id: req.body.Cust_id,
+    Artist_id: req.body.Artist_id,
+    Res_type: req.body.Res_type,
+    Res_date: req.body.Res_date,
+    Start_time: req.body.Start_time,
+    End_time: req.body.End_time
+  };
   let sql = `UPDATE result SET ? WHERE Result_id = ?`;
   let query = db.query(sql, [req.body,req.body.Result_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Result updated...');
+    //res.send('Result updated...');
+    res.status(200).json({ success: 'Result Updated'});
   });
 });
 
