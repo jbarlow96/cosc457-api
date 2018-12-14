@@ -7,7 +7,7 @@ const cors = require('cors');
 const db = mysql.createConnection({
   host: 'localhost', // used localhost
   user: 'root', 
-  password: 'password', // enter your password
+  password: '', // enter your password
   database: 'BulletsInk' // change this to the name of your database
 });
 
@@ -903,7 +903,7 @@ app.patch('/updateshopowner/:id', (req, res) => {
   };
 
   let sql = `UPDATE shop_owner SET ? WHERE Own_id = ?`;
-  let query = db.query(sql,[reservationUpdate, req.params.id], (err, result) => {
+  let query = db.query(sql, [req.body,req.body.Own_id], (err, result) => {
     if (err) throw err;
     console.log(result);
     //res.send('Shop Owner info updated...');
