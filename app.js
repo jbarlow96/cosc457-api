@@ -8,7 +8,7 @@ const db = mysql.createConnection({
   host: 'localhost', // used localhost
   user: 'root', 
   password: 'password', // enter your password
-  database: 'bullets_ink' // change this to the name of your database
+  database: 'BulletsInk' // change this to the name of your database
 });
 
 // Connect
@@ -487,12 +487,13 @@ app.get('/deletecustomer/:id', (req, res) => {
 });
 
 // delete customer account
-app.get('/deletecustumeraccount/:id', (req, res) => {
+app.get('/deletecustomeraccount/:id', (req, res) => {
   let sql = `DELETE FROM customer_account WHERE Cust_id = ?`;
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Customer Account Deleted...');
+    //res.send('Customer Account Deleted...');
+    res.status(200).json({ success: 'Customer Account Deleted' });
   });
 });
 
@@ -663,11 +664,18 @@ app.patch('/updatecustomer/:id', (req, res) => {
 // update customer account
 app.patch('/updatecustomeraccount/:id', (req, res) => {
   let newCustomeraccount = 'Updated Customer Account';
+  let CustmeraccountUpdate = {
+    Uname: req.body.Uname,
+    Passwd: req.body.Passwd,
+    Email: req.body.Email,
+    Phone: req.body.Phone
+  };
   let sql = `UPDATE customer_account SET ? WHERE Cust_id = ?`;
   let query = db.query(sql, [req.body,req.body.Cust_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Customer Account updated...');
+    //res.send('Customer Account updated...');
+    res.status(200).json({ success: 'Customer Account Updated' });
   });
 });
 
