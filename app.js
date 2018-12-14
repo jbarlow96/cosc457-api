@@ -8,7 +8,7 @@ const db = mysql.createConnection({
   host: 'localhost', // used localhost
   user: 'root', 
   password: 'password', // enter your password
-  database: 'bullets_ink' // change this to the name of your database
+  database: 'BulletsInk' // change this to the name of your database
 });
 
 // Connect
@@ -209,7 +209,7 @@ app.post('/merchandise', (req, res) => {
   let query = db.query(sql, merchandise, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.status(200).json({ success: 'merchandise Created' });
+    res.status(200).json({ success: 'Merchandise Created' });
   });
 });
 
@@ -470,7 +470,8 @@ app.get('/deleteartist/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Artist Deleted...');
+    //res.send('Artist Deleted...');
+    res.status(200).json({ success: 'Artist Deleted' });
   });
 });
 
@@ -490,7 +491,8 @@ app.get('/deletemanager/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Manager Deleted...');
+    //res.send('Manager Deleted...');
+    res.status(200).json({ success: 'Manager Deleted' });
   });
 });
 
@@ -510,7 +512,8 @@ app.get('/deletemerchandise/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Selected Merchandise Deleted...');
+    //res.send('Selected Merchandise Deleted...');
+    res.status(200).json({ success: 'Merchandise Deleted' });
   });
 });
 
@@ -550,7 +553,8 @@ app.get('/deletelocation/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Location Deleted...');
+    //res.send('Location Deleted...');
+    res.status(200).json({ success: 'Location Deleted' });
   });
 });
 
@@ -560,7 +564,8 @@ app.get('/deleteinventory/:id', (req, res) => {
   let query = db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Specified Inventory Deleted...');
+    //res.send('Specified Inventory Deleted...');
+    res.status(200).json({ success: 'Inventory Deleted' });
   });
 });
 
@@ -641,11 +646,17 @@ app.patch('/updatecustomeraccount/:id', (req, res) => {
 // update manager
 app.patch('/updatemanager/:id', (req, res) => {
   let newManager = 'Updated Manager';
+  let managerUpdate = {
+    Fname: req.body.Fname,
+    Lname: req.body.Lname,
+    Shop_id: req.body.Shop_id
+  };
   let sql = `UPDATE manager SET ? WHERE Man_id = ?`;
   let query = db.query(sql, [req.body,req.body.Man_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Manager Info updated...');
+    //res.send('Manager Info updated...');
+    res.status(200).json({ success: 'Manager Updated'});
   });
 });
 
@@ -663,11 +674,18 @@ app.patch('/updatemanageraccount/:id', (req, res) => {
 // update merchandise
 app.patch('/updatemerchandise/:id', (req, res) => {
   let newMerchandise = 'Updated Merchandise';
+  let merchandiseUpdate = {
+    Merch_type: req.body.Merch_type,
+    Merch_name: req.body.Merch_name,
+    Merch_price: req.body.Merch_price,
+    Merch_count: req.body.Merch_count
+  };
   let sql = `UPDATE merchandise SET ? WHERE Merch_id = ?`;
   let query = db.query(sql, [req.body,req.body.Merch_id], (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.send('Merchandise updated...');
+    //res.send('Merchandise updated...');
+    res.status(200).json({ success: 'Merchandise Updated'});
   });
 });
 
