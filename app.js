@@ -8,7 +8,7 @@ const db = mysql.createConnection({
   host: 'localhost', // used localhost
   user: 'root', 
   password: 'password', // enter your password
-  database: 'Bullets_ink' // change this to the name of your database
+  database: 'bullets_ink' // change this to the name of your database
 });
 
 // Connect
